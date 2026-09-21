@@ -3,7 +3,7 @@
 
 A simple, in dev operating system with its own kernel, made in C
 
-Its free for everyone to make forks, study, etc.
+I made it myself for learning C so feel free to make a fork or study it
 
 
 
