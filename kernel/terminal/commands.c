@@ -140,7 +140,7 @@ void help(void)
         putchar('\n');
         print("TERMINAL");
         putchar('\n');
-        print("CLEAR: Cleans the terminal.");
+        print("CLEAR: Cleans the shell.");
         putchar('\n');
         putchar('\n');
         print("OUTPUT");
@@ -149,7 +149,7 @@ void help(void)
         putchar('\n');
         print("HELP: You're looking at it right now!");
         putchar('\n');
-        print("VERSION: Displays the kernel's version");
+        print("VERSION: Displays useful information about the version ");
         putchar('\n');
         putchar('\n');
 }
