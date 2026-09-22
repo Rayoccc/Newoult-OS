@@ -23,6 +23,9 @@ I made it myself for learning C so feel free to make a fork or study it
 | `help` | `void` | You're looking at it! |
 | `clear` | `void` | Cleans the shell |
 | `version` | `void` | Displays useful information about the version |
+| `ls` | `void` | Displays files on RAM |
+| `mkdir` | `input` | For now just returns the argument |
+
 
 
 
