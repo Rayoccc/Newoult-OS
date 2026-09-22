@@ -1,10 +1,15 @@
 #include <stdint.h>
 #include "terminal.h"
 #include "../drivers/keyboard.h"
+#include "../fs/fs.h"
 
 char commands[30] = {
   [29] = '\0'
 };
+char command_name[30] = {
+  [29] = '\0'
+};
+char command_arg[30];
 
 uint8_t command_pos = 0;
 uint8_t compare(const char *command, const char *input);
@@ -15,6 +20,8 @@ void hello(void);
 void help(void);
 void clear(void);
 void version(void);
+void ls(void);
+void mkdir(void);
 
 struct Command
 {
@@ -26,14 +33,16 @@ struct Command command_table[] = {
   {"hello", hello},
   {"help", help},
   {"clear", clear},
-  {"version", version}
+  {"version", version},
+  {"ls", ls},
+  {"mkdir", mkdir}
 };
 
 uint8_t size = sizeof(command_table) / sizeof(command_table[0]);
 
 void command(void)
 {
-  
+  uint8_t space_pos = 0;
   char key = kgetchar();
 if (key == 0 )
   {
@@ -43,14 +52,43 @@ if (key == 0 )
       putchar('\n');
 
     if (command_pos > 0) {
+      uint8_t name_pos = 0;
       uint8_t i = 0;
-      uint8_t result = compare(commands, command_table[i].name);
+      uint8_t result = 0;
+      uint8_t arg_pos = 0;
       
-      
+      while (commands[space_pos] != '\0')
+      {
+
+        if (commands[space_pos] == ' ')
+        {
+          while(name_pos < space_pos)
+          {
+            command_name[name_pos] = commands[name_pos];
+            name_pos++;
+          }
+          command_name[name_pos] = '\0';
+        break;
+        }else{
+          command_name[space_pos] = commands[space_pos];
+          space_pos++;
+        }
+        command_name[space_pos] = '\0';
+      }
+      while (commands[space_pos + 1] != '\0')
+      {
+        space_pos++;
+        command_arg[arg_pos] = commands[space_pos];
+        arg_pos++;
+      }
+      command_arg[arg_pos] = '\0';
       while (result == 0 && i < size) {
         
+        result = compare(command_name, command_table[i].name);
+        if (result == 0)
+        {
         i++;
-        result = compare(commands, command_table[i].name);
+        }
         
       }
     
@@ -162,9 +200,20 @@ void clear(void)
 
 void version(void)
 {
-  print("Newoult OS v0.0.0-pre-alpha-0002");
+  print("Newoult OS v0.0.0-pre-alpha-0003");
   putchar('\n');
   print("Drivers version:");
   putchar('\n');
   print("Metal 0.0.0-pre-alpha-0003");
+}
+
+void ls(void)
+{
+  list_files();
+}
+
+void mkdir(void)
+{
+  print(command_arg);
+  putchar('\n');
 }
