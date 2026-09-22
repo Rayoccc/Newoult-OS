@@ -162,6 +162,9 @@ void clear(void)
 
 void version(void)
 {
-  print("Newoult OS v0.0.0-pre-alfa-0001");
+  print("Newoult OS v0.0.0-pre-alpha-0002");
   putchar('\n');
+  print("Drivers version:");
+  putchar('\n');
+  print("Metal 0.0.0-pre-alpha-0003");
 }
